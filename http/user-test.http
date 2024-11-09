@@ -1,0 +1,105 @@
+GET http://localhost:8001/user-service/hello
+Accept: application/json
+
+### 网关接口
+GET http://localhost:8000/user-service/hello
+Accept: application/json
+
+
+### 计数
+GET localhost:8000/user-service/user/count
+Accept: application/json
+
+
+### 登录
+POST localhost:8000/user-service/user/login
+Content-Type: application/json
+
+{
+  "phone": "19952647033",
+  "password": "123456"
+}
+
+> {%
+    client.global.set("token",response.body.data.token)
+%}
+
+
+
+
+### 注册
+POST localhost:8000/user-service/user/register
+Content-Type: application/json
+
+{
+"phone": "19952647033",
+"password": "123456"
+}
+
+
+
+### 查询通知
+GET http://localhost:8000/content-service/share/notice
+Accept: application/json
+
+
+### 查询书籍
+GET http://localhost:8000/content-service/share/list?pageNo=2&pageSize=4
+Accept: application/json
+token: {{token}}
+
+### 分享
+GET http://localhost:8000/content-service/share/2
+Accept: application/json
+
+### 更新余额
+POST http://localhost:8000/user-service/user/updateBonus
+Content-Type: application/json
+token: {{token}}
+
+{
+  "userId": 1,
+  "bonus": 1000
+}
+
+###
+POST http://localhost:8000/content-service/share/exchange
+Content-Type: application/json
+token: {{token}}
+
+{
+  "userId": 1,
+  "shareId": 4
+}
+
+###
+POST http://localhost:8000/content-service/share/contribute
+Content-Type: application/json
+token: {{token}}
+
+{
+  "userId":1,
+  "author": "BOOKs",
+  "title": "BOOKs",
+  "isOriginal": 1,
+  "price": 20,
+  "downloadUrl": "https://cn.vuejs.org",
+  "cover": "https://niit-soft.oss.cn-hangzhang/vue3.jpg",
+  "summary": "详解 Vue.js 3，详解 Vue.js 3，详解 Vue.js 3，详解 Vue.js 3，详解 Vue.js 3，详解 Vue.js 3"
+}
+
+
+###
+GET http://localhost:8000/content-service/share/myContribute?pageNo=0&pageSize=2
+Accept: application/json
+token: {{token}}
+
+### 查询所有文章列表
+GET http://localhost:8000/content-service/share/admin/list
+Accept: application/json
+token:{{token}}
+
+### 审核文章
+PUT http://localhost:8000/content-service/share/admin/approve/1855058113565544449
+Accept: application/json
+
